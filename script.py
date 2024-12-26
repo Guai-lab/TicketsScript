@@ -34,13 +34,16 @@ def login():
 
 def get_cookies():
     cookies_dict = {}
-    if os.path.exists('cookies.txt'):
-        with open('cookies.txt', 'r') as f:
-            cookies = f.read()
-            cookies = eval(cookies)
-            for cookie in cookies:
-                cookies_dict[cookie['name']] = cookie['value']
+    if not os.path.exists('cookies.txt'):
         return cookies_dict
+    with open('cookies.txt', 'r') as f:
+        cookies = f.read()
+        if not cookies:
+            return cookies_dict
+        cookies = eval(cookies)
+        for cookie in cookies:
+            cookies_dict[cookie['name']] = cookie['value']
+    return cookies_dict
 
 def judge_login(params):    
     cookies_dict = get_cookies()
