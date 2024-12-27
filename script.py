@@ -12,7 +12,7 @@ HOME_PAGE = 'https://tybsouthgym.xidian.edu.cn/Views/User/Main.html'
 LOGIN = 'https://tybsouthgym.xidian.edu.cn/User/UserChoose?LoginType=1'
 ORDER = 'https://tybsouthgym.xidian.edu.cn/Field/OrderField'
 
-# params
+# TODO 修改params
 START_TIME = '19:00'
 END_TIME = '21:00'
 Field = 'YMQ'  # PPQ or YMQ
@@ -23,9 +23,14 @@ END_NUM = 10
 def login():
     chrome_options = Options()
     driver = webdriver.Chrome(ChromeDriverManager().install(), options=chrome_options)
-
     driver.get(LOGIN)
-    input('请手动登录后在命令行按回车键继续')
+    time.sleep(5)
+    # TODO 修改账密
+    driver.find_element_by_id('username').send_keys('*****')
+    driver.find_element_by_id('password').send_keys('*****')
+    driver.find_element_by_id('rememberMe').click()
+    driver.find_element_by_id('login_submit').click()
+    input('请登录后在命令行按回车键继续')
     cookies = driver.get_cookies()
     with open('cookies.txt', 'w') as f:
         f.write(str(cookies))
